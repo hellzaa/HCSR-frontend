@@ -1,6 +1,5 @@
 import React , {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import './PharmacyList.css';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import NavigBar from '../mohNavBar';
 //import {Button} from 'react-bootstrap';
@@ -13,33 +12,50 @@ import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 //import BootstrapTable from 'react-bootstrap-table-next';
 import { Row, Col } from 'reactstrap';
-import ModalForm from './Modals/pharmacyModal';
-import DataTable from './Tables/pharmacyDataTable';
+import ModalForm from './Modals/pharmacyAdminModal';
+import LabModalForm from './Modals/laboratoryAdminModal';
+import HospModalForm from './Modals/hospitalAdminModal';
+import DataTable from './Tables/pharmacyAdminDataTable';
 import { CSVLink } from "react-csv";
 
 
 
-class PharmacyList extends Component{
+class AdminList extends Component{
   state={
-    items: []
-  }
-
-getPharmacies(){
-  fetch('http://localhost:3007/moh/pharmacy/get')
-    .then(response => response.json())
-    .then(response => this.setState({items:response}))
-    .catch(err => console.log(err))
-    console.log("Getting pharmacies...")
+      items: []
+    }
+  
+getAllAdmins(){
+  fetch('http://localhost:3007/moh/getalladmins')
+  .then(response => response.json())
+  .then(response => this.setState({items:response}))
+  .catch(err => console.log(err))
+  console.log("Getting all admins...")
 }
 
-addPharmacy = (item) => {
+addPharmacyAdmin = (item) => {
+  console.log("Adding Pharmacy Admin")
   this.setState(prevState => ({
     items: [...prevState.items, item]
   }))
 }
 
-updatePharmacy = (item) => {
-  const itemIndex = this.state.items.findIndex(data => data.id === item.PharmacyID)
+addLaboratoryAdmin = (item) => {
+  console.log("Adding Laboratory Admin")
+  this.setState(prevState => ({
+    items: [...prevState.items, item]
+  }))
+}
+
+addHospitalAdmin = (item) => {
+  console.log("Adding Hospital Admin")
+  this.setState(prevState => ({
+    items: [...prevState.items, item]
+  }))
+}
+
+updatePharmacyAdmin = (item) => {
+  const itemIndex = this.state.items.findIndex(data => data.id === item.UserID)
   const newArray = [
   // destructure all items from beginning to the indexed item
     ...this.state.items.slice(0, itemIndex),
@@ -52,41 +68,43 @@ updatePharmacy = (item) => {
 }
 
 componentDidMount(){
-  this.getPharmacies()
+  this.getAllAdmins()
 }
-
+/*
 deleteRow(id){
   DataTable.deleteRow(id).then(res => {
-    this.setState({items:this.state.items.filter(item => item.PharmacyID !==id)});
+    this.setState({items:this.state.items.filter(item => item.UserID !==id)});
   });
 }
-
+*/
 render() {
   return (
       <div>
       <NavigBar />
       <Row>
         <Col>
-          <h1 style={{margin: "20px 0"}}>Pharmacy List</h1>
+          <h1 style={{margin: "20px 0"}}>Facility Admins - List</h1>
         </Col>
       </Row>
       <Row>
         <Col>
           <CSVLink
-            filename={"Pharmacies.csv"}
+            filename={"Admins.csv"}
             color="primary"
             style={{float: "left", marginRight: "10px"}}
             className="btn btn-primary" 
             data={this.state.items}>
             Download CSV
           </CSVLink>
-          <ModalForm buttonLabel="Add Pharmacy" addPharmacy={this.addPharmacy}/>
+          <ModalForm buttonLabel="Add Pharmacy Admin" addPharmacyAdmin={this.addPharmacyAdmin}/>
+          <LabModalForm buttonLabel="Add Laboratory Admin" addLaboratoryAdmin={this.addLaboratoryAdmin}/>
+          <HospModalForm buttonLabel="Add Hospital Admin" addHospitalAdmin={this.addHospitalAdmin}/>
         </Col>
         </Row>
       <div>
       <Row>
         <Col>
-          <DataTable items={this.state.items} updatePharmacy={this.updatePharmacy} deleteRow={this.deleteRow} />
+          <DataTable items={this.state.items}/>
         </Col>
       </Row>
       </div>
@@ -96,4 +114,4 @@ render() {
   }
 }
 
-export default PharmacyList; 
+export default AdminList; 

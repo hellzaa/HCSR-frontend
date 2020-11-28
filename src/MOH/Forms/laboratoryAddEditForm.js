@@ -100,7 +100,7 @@ render() {
         </FormGroup>
         <FormGroup>
           <Label for="Branch">Branch</Label>
-          <Input type="Branch" name="Branch" id="Branch" onChange={this.onChange} value={this.state.Branch === null ? '' : this.state.Branch}  />
+          <Input type="number" name="Branch" id="Branch" onChange={this.onChange} value={this.state.Branch === null ? '' : this.state.Branch}  />
         </FormGroup>
         <FormGroup>
           <Label for="City">City</Label>
@@ -112,7 +112,7 @@ render() {
         </FormGroup>
         <FormGroup>
           <Label for="Woreda">Woreda</Label>
-          <Input type="text" name="Woreda" id="Woreda" onChange={this.onChange} value={this.state.Woreda  === null ? '' : this.state.Woreda}  />
+          <Input type="number" name="Woreda" id="Woreda" onChange={this.onChange} value={this.state.Woreda  === null ? '' : this.state.Woreda}  />
         </FormGroup>
         <FormGroup>
           <Label for="PhoneNo">Phone No.</Label>
@@ -120,11 +120,11 @@ render() {
         </FormGroup>
         <FormGroup>
           <Label for="Email">Email</Label>
-          <Input type="text" name="Email" id="Email" onChange={this.onChange} value={this.state.Email === null ? '' : this.state.Email}  />
+          <Input type="email" name="Email" id="Email" onChange={this.onChange} value={this.state.Email === null ? '' : this.state.Email}  />
         </FormGroup>
         <FormGroup>
           <Label for="PoBox">PoBox</Label>
-          <Input type="text" name="PoBox" id="PoBox" onChange={this.onChange} value={this.state.PoBox === null ? '' : this.state.PoBox}  />
+          <Input type="number" name="PoBox" id="PoBox" onChange={this.onChange} value={this.state.PoBox === null ? '' : this.state.PoBox}  />
         </FormGroup>
         <FormGroup>
           <Label for="Latitude">Latitude</Label>

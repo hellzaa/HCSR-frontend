@@ -24,6 +24,7 @@ return(
       <Nav.Link href = "http://localhost:3000/moh/pharmacylist">Pharmacy List</Nav.Link>
       <Nav.Link href = "http://localhost:3000/moh/laboratorylist">Laboratory List</Nav.Link>
       <Nav.Link href = "http://localhost:3000/moh/hospitallist">Hospital List</Nav.Link>
+      <Nav.Link href = "http://localhost:3000/moh/facilityadmins">Facility Admins</Nav.Link>
       <NavDropdown title="Profile" id="collasible-nav-dropdown">
         <NavDropdown.Item href="http://localhost:3000/pharmacy/adminprofile">Admin Profile</NavDropdown.Item>
         <NavDropdown.Item href="http://localhost:3000/pharmacy/pharmacyprofile">Pharmacy Profile</NavDropdown.Item>

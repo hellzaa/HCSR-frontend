@@ -1,6 +1,8 @@
+//Pharmacy Admin Modal
+
 import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap'
-import AddEditForm from '../Forms/pharmacyAddEditForm'
+import AddEditForm from '../Forms/pharmacyAdminAddEditForm'
 
 class ModalForm extends Component {
   constructor(props) {
@@ -30,14 +32,14 @@ class ModalForm extends Component {
                   onClick={this.toggle}
                   style={{float: "left", marginRight:"10px"}}>{label}
                 </Button>
-        title = 'Edit Pharmacy Data'
+        title = 'Edit Pharmacy Admin Data'
       } else {
         button = <Button
                   color="success"
                   onClick={this.toggle}
                   style={{float: "left", marginRight:"10px"}}>{label}
                 </Button>
-        title = 'Add New Pharmacy'
+        title = 'Add Pharmacy Admin'
       }
 
       return (
@@ -47,8 +49,8 @@ class ModalForm extends Component {
             <ModalHeader toggle={this.toggle} close={closeBtn}>{title}</ModalHeader>
             <ModalBody>
               <AddEditForm
-                addPharmacy={this.props.addPharmacy}
-                updatePharmacy={this.props.updatePharmacy}
+                addPharmacyAdmin={this.props.addPharmacyAdmin}
+                updatePharmacy={this.props.updatePharmacyAdmin}
                 toggle={this.toggle}
                 item={this.props.item} />
             </ModalBody>

@@ -22,7 +22,6 @@ class HospitalList extends Component{
   state={
     items: []
   }
-  //employeeToken:employeeToken }
   
   
   getHospitals(){
@@ -52,16 +51,16 @@ updateHospital = (item) => {
   ]
   this.setState({ items: newArray })
 }
-deleteItemFromState = (id) => {
-  const updatedItems = this.state.items.filter(item => item.HospID !== id)
-  this.setState({ items: updatedItems })
-}
 
 componentDidMount(){
   this.getHospitals()
 }
 
-
+deleteRow(id){
+  DataTable.deleteRow(id).then(res => {
+    this.setState({items:this.state.items.filter(item => item.HospID !==id)});
+  });
+}
 
 render() {
   return (
@@ -88,7 +87,7 @@ render() {
       <div>
       <Row>
         <Col>
-          <DataTable items={this.state.items} updateHospital={this.updateHospital} deleteItemFromState={this.deleteItemFromState} />
+          <DataTable items={this.state.items} updateHospital={this.updateHospital} deleteRow={this.deleteRow} />
         </Col>
       </Row>
       </div>
@@ -98,112 +97,4 @@ render() {
   }
 }
 
-
-
-
-
-
-
-
-/*
-onAddClicked=()=>{
-this.props.history.push('/moh/hospital/add')
-}
-componentDidMount(){
-
-fetch(`http://localhost:3007/moh/hospital/get`)
-.then(response=>response.json())
-.then(response=>this.setState({items:response}));
-
-}
-
-render()
-{
-
-const selectRowProp = {
-  mode: "checkbox",
-  clickToSelect: true,
-  bgColor: "rgb(238, 193, 213)" 
-};
-const columns = [{
-  dataField: 'HospitalName',
-  text: 'Hospital Name',
-  sort: true,
-  filter: textFilter()
-}, {
-  dataField: 'City',
-  text: 'City',
-  sort: true,
-  filter: textFilter()
-}, {
-  dataField: 'Subcity',
-  text: 'Subcity',
-  sort: true,
-  filter: textFilter()
-},{
-  dataField: 'Woreda',
-  text: 'Woreda',
-  sort: true,
-  filter: textFilter()
-},{
-  dataField: 'Referral',
-  text: 'Referral',
-  sort: true,
-  filter: textFilter()
-},/*{
-  dataField: 'Website',
-  text: 'Website',
-  sort: true,
-  filter: textFilter()
-},{
-  dataField: 'PhoneNo',
-  text: 'PhoneNo',
-  //sort: true,
-  filter: textFilter()
-},/*{
-    dataField: 'Email',
-    text: 'Email',
-    sort: true,
-    filter: textFilter()
-},{
-  dataField: 'Latitude',
-  text: 'Latitude',
-  sort: true,
-  filter: textFilter()
-},{
-  dataField: 'Longitude',
-  text: 'Longitude',
-  sort: true,
-  filter: textFilter()
-}];
-
-
-return (
-<div>
-
-<NavigBar />
-<div id="add">
-</div>
-<Button variant="outline-secondary" size="sm" onClick={this.onAddClicked}>Add New Hospital</Button>
-<div id="add">
-</div>
-
-<div style={{ marginTop:20 }}>
-<BootstrapTable insertRow exportCSV  keyField='HospitalName' 
-  data={this.state.items} 
-  selectRow={selectRowProp} columns={columns} 
-  dataSort={ true }  
-  filter={ filterFactory() }
-  pagination={ paginationFactory() }
-  striped hover condensed />
-
-</div>
-
-</div>
-
-);
-
-}
-
-}*/
 export default HospitalList; 

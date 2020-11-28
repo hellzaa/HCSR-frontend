@@ -2,6 +2,10 @@ import React , {Component} from 'react';
 import './login.css'
 import axios from 'axios';
 import jwt from 'jwt-decode';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+
+
+
 class Login extends Component{
 constructor(){
 super();
@@ -60,11 +64,17 @@ return (
 <div id="box">
 <h1 id="loginbox">Login</h1>
 
-<form onSubmit={this.handleSubmit}>
-<input placeholder="Username" type="text" id="Username" onChange={this.handleUsernameChange.bind(this)}/>
-<input placeholder="Password" type="password" id="Password" onChange={this.handlePasswordChange.bind(this)}/>
-<button id="login">LogIn</button>
-</form>
+<Form onSubmit={this.handleSubmit}>
+  <FormGroup>
+    <Label for="Username">Username</Label>
+    <Input type="text" name="Username" placeholder="Enter Username" id="Username" onChange={this.handleUsernameChange.bind(this)}/>
+  </FormGroup>
+  <FormGroup>
+    <Label for="Password">Password</Label>
+    <Input type="password" name="Password" placeholder="Enter Password" id="Password" onChange={this.handlePasswordChange.bind(this)}/>
+  </FormGroup>
+  <Button color="primary" id="login">Login</Button>
+</Form>
 
 </div>
 

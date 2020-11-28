@@ -14,13 +14,13 @@ import addNewEmployee from "./addNewEmployee";
 import mohPharmacyList from "./MOH/mohPharmacyList";
 import * as serviceWorker from './serviceWorker';
 import {Route, BrowserRouter as Router} from 'react-router-dom';
-//import addNewPharmacy from './MOH/addNewPharmacy';
-import mohLaboratoryList from "./MOH/mohLaboratoryList";
-//import addNewLaboratory from "./MOH/addNewLaboratory";
-import mohHospitalList from "./MOH/mohHospitalList";
-//import addNewHospital from "./MOH/addNewHospital";
-import Home from './MOH/mohHome';
 
+import mohLaboratoryList from "./MOH/mohLaboratoryList";
+
+import mohHospitalList from "./MOH/mohHospitalList";
+
+import Home from './MOH/mohHome';
+import AdminList from './MOH/mohAdminList';
 
 const routing=(
 <Router>
@@ -45,7 +45,7 @@ const routing=(
 <Route exact path = '/moh/pharmacylist' component = {mohPharmacyList}/>
 <Route exact path = '/moh/laboratorylist' component = {mohLaboratoryList}/>
 <Route exact path = '/moh/hospitallist' component = {mohHospitalList}/>
-
+<Route exact path = '/moh/facilityadmins' component = {AdminList}/>
 
 </div>
 </Router>

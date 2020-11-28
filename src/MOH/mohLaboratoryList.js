@@ -23,43 +23,45 @@ class LaboratoryList extends Component{
   state={
     items: []
   }
-  //employeeToken:employeeToken }
   
   
-  getLaboratories(){
-    fetch('http://localhost:3007/moh/laboratory/get')
-      .then(response => response.json())
-      .then(response => this.setState({items:response}))
-      .catch(err => console.log(err))
-      console.log("Getting laboratories...")
-  }
+getLaboratories(){
+  fetch('http://localhost:3007/moh/laboratory/get')
+    .then(response => response.json())
+    .then(response => this.setState({items:response}))
+    .catch(err => console.log(err))
+    console.log("Getting laboratories...")
+}
   
-  addLaboratory = (item) => {
-    this.setState(prevState => ({
-      items: [...prevState.items, item]
-    }))
-  }
+addLaboratory = (item) => {
+  this.setState(prevState => ({
+    items: [...prevState.items, item]
+  }))
+}
   
-  updateLaboratory = (item) => {
-    const itemIndex = this.state.items.findIndex(data => data.id === item.LabID)
-    const newArray = [
+updateLaboratory = (item) => {
+  const itemIndex = this.state.items.findIndex(data => data.id === item.LabID)
+  const newArray = [
     // destructure all items from beginning to the indexed item
-      ...this.state.items.slice(0, itemIndex),
+    ...this.state.items.slice(0, itemIndex),
     // add the updated item to the array
-      item,
+    item,
     // add the rest of the items to the array from the index after the replaced item
-      ...this.state.items.slice(itemIndex + 1)
-    ]
-    this.setState({ items: newArray })
-  }
-  deleteItemFromState = (id) => {
-    const updatedItems = this.state.items.filter(item => item.LabID !== id)
-    this.setState({ items: updatedItems })
-  }
-  
-  componentDidMount(){
-    this.getLaboratories()
-  }
+    ...this.state.items.slice(itemIndex + 1)
+  ]
+  this.setState({ items: newArray })
+}
+
+componentDidMount(){
+  this.getLaboratories()
+}
+
+deleteRow(id){
+  DataTable.deleteRow(id).then(res => {
+    this.setState({items:this.state.items.filter(item => item.LabID !==id)});
+  });
+}
+
 
   render() {
     return (
@@ -86,7 +88,7 @@ class LaboratoryList extends Component{
         <div>
         <Row>
           <Col>
-            <DataTable items={this.state.items} updateLaboratory={this.updateLaboratory} deleteItemFromState={this.deleteItemFromState} />
+            <DataTable items={this.state.items} updateLaboratory={this.updateLaboratory} deleteRow={this.deleteRow} />
           </Col>
         </Row>
         </div>
@@ -96,107 +98,4 @@ class LaboratoryList extends Component{
     }
   }
 
-
-
-/*
-onAddClicked=()=>{
-this.props.history.push('/moh/laboratory/add')
-}
-componentDidMount(){
-
-fetch(`http://localhost:3007/moh/laboratory/get`)
-.then(response=>response.json())
-.then(response=>this.setState({items:response}));
-
-}
-
-render()
-{
-
-const selectRowProp = {
-  mode: "checkbox",
-  clickToSelect: true,
-  bgColor: "rgb(238, 193, 213)" 
-};
-const columns = [{
-  dataField: 'LabName',
-  text: 'Laboratory Name',
-  sort: true,
-  filter: textFilter()
-}, {
-  dataField: 'Type',
-  text: 'Type',
-  sort: true,
-  filter: textFilter()
-}, {
-  dataField: 'Branch',
-  text: 'Branch',
-  sort: true,
-  filter: textFilter()
-}, {
-  dataField: 'City',
-  text: 'City',
-  sort: true,
-  filter: textFilter()
-}, {
-  dataField: 'Subcity',
-  text: 'Subcity',
-  sort: true,
-  filter: textFilter()
-},{
-  dataField: 'Woreda',
-  text: 'Woreda',
-  sort: true,
-  filter: textFilter()
-},{
-  dataField: 'PhoneNo',
-  text: 'PhoneNo',
-  //sort: true,
-  filter: textFilter()
-},/*{
-    dataField: 'Email',
-    text: 'Email',
-    sort: true,
-    filter: textFilter()
-},{
-  dataField: 'Latitude',
-  text: 'Latitude',
-  sort: true,
-  filter: textFilter()
-},{
-  dataField: 'Longitude',
-  text: 'Longitude',
-  sort: true,
-  filter: textFilter()
-}];
-
-
-return (
-<div>
-
-<NavigBar />
-<div id="add">
-</div>
-<Button variant="outline-secondary" size="sm" onClick={this.onAddClicked}>Add New Laboratory </Button>
-<div id="add">
-</div>
-
-<div style={{ marginTop:20 }}>
-<BootstrapTable insertRow exportCSV  keyField='LabName' 
-  data={this.state.items} 
-  selectRow={selectRowProp} columns={columns} 
-  dataSort={ true }  
-  filter={ filterFactory() }
-  pagination={ paginationFactory() }
-  striped hover condensed />
-
-</div>
-
-</div>
-
-);
-
-}
-
-}*/
 export default LaboratoryList; 

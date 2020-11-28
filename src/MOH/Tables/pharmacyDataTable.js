@@ -5,46 +5,22 @@ import ModalForm from '../Modals/pharmacyModal'
 import axios from 'axios';
 
 class DataTable extends Component {
-  state = {
-    PharmacyID:0,
-    PharmacyName:"",
-    Type:"",
-    Branch:"",
-    City:"",
-    Subcity:"",
-    Woreda:"",
-    PhoneNo:"",
-    Email:"",
-    PoBox:"",
-    Latitude:"",
-    Longitude:""
-  }
-
-  deleteItem = PharmacyID => {
-  let confirmDelete = window.confirm('Delete item forever?')
+ 
+deleteRow(PharmacyID){
+  let confirmDelete = window.confirm('Do you want to delete this phamacy forever?')
   if(confirmDelete){
-    console.log("Delete Confirmed!!!")
-    console.log(PharmacyID);
-    axios.delete(`http://localhost:3007/moh/pharmacy/delete/${this.state.PharmacyID}`)
-    //.then(res=>{
-      //if(res.status === 200){
-      //this.props.push.history.replace("/moh/pharmacylist");
-      //console.log("Ere please delete");
-      //console.log(PharmacyID)
-      //}
-    .then(res => {
-      if(res.status === 200){
-        console.log("Ere please delete");
-        console.log(PharmacyID);
-      }
+    return(
+      axios.delete(`http://localhost:3007/moh/pharmacy/delete/${PharmacyID}`)
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+        window.location.reload();
     })
-    .then (item => {
-      this.props.deleteItemFromState(PharmacyID)
-    })
-    .catch(err => console.log(err))
+    )
+    
   }
-
 }
+
   render() {
 
     const items = this.props.items.map(item => {
@@ -66,14 +42,14 @@ class DataTable extends Component {
             <div style={{width:"110px"}}>
               <ModalForm buttonLabel="Edit" item={item} updatePharmacy={this.props.updatePharmacy}/>
               {' '}
-              <Button color="danger" size="sm" onClick={() => this.deleteItem(item.PharmacyID)}>Del</Button>
+              <Button color="danger" size="sm" onClick={() => this.deleteRow(item.PharmacyID)}>Del</Button>
             </div>
           </td>
         </tr>
         )
       })
       return (
-        <Table responsive striped hover size="sm">
+        <Table responsive striped hover bordered size="sm">
           <thead>
             <tr>
               <th>ID</th>
@@ -99,4 +75,4 @@ class DataTable extends Component {
     }
   }
   
-  export default DataTable
+  export default DataTable;

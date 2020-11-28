@@ -5,46 +5,22 @@ import ModalForm from '../Modals/hospitalModal'
 import axios from 'axios';
 
 class DataTable extends Component {
-  state = {
-    HospID:0,
-    HospitalName:"",
-    City:"",
-    Subcity:"",
-    Woreda:"",
-    Referral:"",
-    Website:"",
-    PhoneNo:"",
-    Email:"",
-    PoBox:"",
-    Latitude:"",
-    Longitude:""
-  }
 
-  deleteItem = HospID => {
-  let confirmDelete = window.confirm('Delete item forever?')
-  if(confirmDelete){
-    console.log("Delete Confirmed!!!")
-    console.log(HospID);
-    axios.delete(`http://localhost:3007/moh/hospital/delete/${this.state.HospID}`)
-    //.then(res=>{
-      //if(res.status === 200){
-      //this.props.push.history.replace("/moh/pharmacylist");
-      //console.log("Ere please delete");
-      //console.log(HospID)
-      //}
-    .then(res => {
-      if(res.status === 200){
-        console.log("Ere please delete");
-        console.log(HospID);
-      }
-    })
-    .then (item => {
-      this.props.deleteItemFromState(HospID)
-    })
-    .catch(err => console.log(err))
-  }
-
+  deleteRow(HospID){
+    let confirmDelete = window.confirm('Do you want to delete this hospital forever?')
+    if(confirmDelete){
+      return(
+        axios.delete(`http://localhost:3007/moh/hospital/delete/${HospID}`)
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+          window.location.reload();
+      })
+      )
+      
+    }
 }
+
   render() {
 
     const items = this.props.items.map(item => {
@@ -66,7 +42,7 @@ class DataTable extends Component {
             <div style={{width:"100px"}}>
               <ModalForm buttonLabel="Edit" item={item} updateHospital={this.props.updateHospital}/>
               {' '}
-              <Button color="danger" size="sm" onClick={() => this.deleteItem(item.HospID)}>Del</Button>
+              <Button color="danger" size="sm" onClick={() => this.deleteRow(item.HospID)}>Del</Button>
               <Button color="primary" size="sm">Admin</Button>
             </div>
           </td>

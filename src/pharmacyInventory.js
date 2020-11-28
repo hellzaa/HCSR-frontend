@@ -89,7 +89,7 @@ return (
 <Button variant="outline-secondary" size="sm"onClick={this.onAddClicked}>Add New Medcine </Button>
 <div id="add">
 </div>
-<div className="container">
+
 <div style={{ marginTop:20 }}>
 <BootstrapTable insertRow exportCSV  keyField='GenericName' 
 data={this.state.items} 
@@ -101,7 +101,7 @@ striped hover condensed />
 
 </div>
 </div>
-</div>
+
 
 );
 else

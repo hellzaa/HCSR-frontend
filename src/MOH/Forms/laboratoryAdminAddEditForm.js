@@ -9,7 +9,7 @@ class AddEditForm extends React.Component {
     Lastname:"",
     Username:"",
     Password:"",
-    Pharmacy:""
+    Laboratory:""
   }
 
   onChange = e => {
@@ -19,17 +19,18 @@ class AddEditForm extends React.Component {
     e.preventDefault();
     window.location.reload();
     console.log("Submit Form...!!!!");
-    axios.post(`http://localhost:3007/moh/pharmacy/addadmin`,{
-     Firstname: this.state.Firstname,
+    axios.post(`http://localhost:3007/moh/laboratory/addadmin`,{
+    //  blabla:"blabla"
+      Firstname: this.state.Firstname,
       Lastname: this.state.Lastname,
       Username: this.state.Username,
       Password: this.state.Password,
-      Pharmacy: this.state.Pharmacy})
+      Laboratory: this.state.Laboratory})
       .then(item => {
       if(Array.isArray(item)) {
-        console.log("Pharmacy Admin")
+        console.log("Laboratory Admin")
         console.log(item[0])
-        this.props.addPharmacyAdmin(item[0])
+        this.props.addLaboratoryAdmin(item[0])
         this.props.push.history.replace("moh/facilityadmins")
         this.props.toggle()
     } else {
@@ -43,17 +44,17 @@ class AddEditForm extends React.Component {
 submitFormEdit = e => {
   e.preventDefault();
   window.location.reload();
-  axios.put(`http://localhost:3007/moh/pharmacy/editadmin/${this.state.UserID}`,{
+  axios.put(`http://localhost:3007/moh/pharmacy/edit/${this.state.UserID}`,{
     Firstname: this.state.Firstname,
     Lastname: this.state.Lastname,
     Username: this.state.Username,
     Password: this.state.Password,
-    Pharmacy: this.state.Pharmacy})
+    Laboratory: this.state.Laboratory})
     .then(item => {
       if(Array.isArray(item)) {
         // console.log(item[0])
         this.props.updatePharmacyAdmin(item[0])
-        this.props.push.history.replace("moh/facilityadmins")
+        this.props.push.history.replace("moh/pharmacylist")
         this.props.toggle()
     } //else {
       //console.log('failure')
@@ -64,8 +65,8 @@ submitFormEdit = e => {
 componentDidMount(){
   // if item exists, populate the state with proper data
   if(this.props.item){
-    const { UserID, Firstname, Lastname, Username, Password, Institution, JobDescription, Pharmacy } = this.props.item
-    this.setState({ UserID, Firstname, Lastname, Username, Password, Institution, JobDescription, Pharmacy })
+    const { UserID, Firstname, Lastname, Username, Password, Institution, JobDescription, Laboratory } = this.props.item
+    this.setState({ UserID, Firstname, Lastname, Username, Password, Institution, JobDescription, Laboratory })
   }
 }
 
@@ -90,8 +91,8 @@ render() {
           <Input type="password" name="Password" id="Password" onChange={this.onChange} value={this.state.Password === null ? '' : this.state.Password}/>
         </FormGroup>
         <FormGroup>
-          <Label for="Pharmacy">Pharmacy Id.</Label>
-          <Input type="number" name="Pharmacy" id="Pharmacy" onChange={this.onChange} value={this.state.Pharmacy === null ? '' : this.state.Pharmacy} />
+          <Label for="Laboratory">Laboratory Id.</Label>
+          <Input type="number" name="Laboratory" id="Laboratory" onChange={this.onChange} value={this.state.Laboratory === null ? '' : this.state.Laboratory} />
         </FormGroup>
                 
         <Button>Submit</Button>
