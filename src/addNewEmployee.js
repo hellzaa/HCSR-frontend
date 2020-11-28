@@ -16,13 +16,15 @@ class addNewEmployee extends Component{
 constructor(){
 super();
 const employeeToken =localStorage.getItem('token');
+const tokenDecoded=jwt(employeeToken);
 this.state={
 Firstname:"",
 Lastname:"",
 Username:"",
 Password:"",
 JobDescription:"",
-employeeToken: employeeToken
+employeeToken: employeeToken,
+tokenDecoded: tokenDecoded
 };
 
 this.handleSubmit=this.handleSubmit.bind(this);
@@ -51,9 +53,14 @@ this.setState({Password: event.target.value});
 
 handleSubmit(event){
 event.preventDefault();
-this.props.history.push("/pharmacy/employeeprofile");
+if(this.state.tokenDecoded.sessiondata.Institution==="Pharmacy")  
+    this.props.history.push("/pharmacy/employeeprofile");
+else if(this.state.tokenDecoded.sessiondata.Institution==="Laboratory")  
+    this.props.history.push("/laboratory/employeeprofile");
 window.location.reload();
 
+if(this.state.tokenDecoded.sessiondata.Institution==="Pharmacy")  
+{
 axios.post(`http://localhost:3007/pharmacy/addnewemployee/${this.state.employeeToken}`,{
 Firstname:this.state.Firstname,
 Lastname:this.state.Lastname,
@@ -72,6 +79,32 @@ console.log("New user added");
 }
 
 }).catch(console.log);
+}
+
+else if(this.state.tokenDecoded.sessiondata.Institution==="Laboratory")  
+{
+  axios.post(`http://localhost:3007/laboratory/addnewemployee/${this.state.employeeToken}`,{
+    Firstname:this.state.Firstname,
+    Lastname:this.state.Lastname,
+    Password:this.state.Password,
+    JobDescription:this.state.JobDescription,
+    Username:this.state.Username,
+    
+    }).then(res=>{
+    if(res.status===200){
+    console.log("Add new employee token");
+    console.log(localStorage.getItem('token'));
+    var employeetoken=jwt(localStorage.getItem('token'));
+    console.log(employeetoken);
+    console.log("New user added");
+    //this.props.push.history.replace("/pharmacy/employeeprofile");
+    }
+    
+    }).catch(console.log);
+
+
+}
+
 }
 render()
 {

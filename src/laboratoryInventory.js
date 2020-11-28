@@ -1,6 +1,6 @@
 import React , {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './pharmacyInventory.css';
+import './laboratoryInventory.css';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import NavigBar from './NavBar.js';
 import {Button} from 'react-bootstrap';
@@ -15,7 +15,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { Redirect } from 'react-router-dom';
 
 
-class PharmacyInventory extends Component{
+class LaboratoryInventory extends Component{
 constructor(){
 const employeeToken=localStorage.getItem('token');
 super();
@@ -25,11 +25,11 @@ employeeToken:employeeToken }
 
 onAddClicked=()=>{
 
-this.props.history.push('/pharmacy/addnewmedicine')
+this.props.history.push('/laboratory/addnewlabtest')
 }
 componentDidMount(){
 if(this.state.employeeToken!=null)
-	fetch(`http://localhost:3007/pharmacy/inventory/${this.state.employeeToken}`)
+	fetch(`http://localhost:3007/laboratory/labtest/${this.state.employeeToken}`)
 	.then(response=>response.json())
 	.then(response=>this.setState({items:response}));
 
@@ -48,31 +48,18 @@ const selectRowProp = {
   bgColor: "rgb(238, 193, 213)" 
 };
 const columns = [{
-  dataField: 'GenericName',
-  text: 'Generic Name',
+  dataField: 'LabTestName',
+  text: 'Lab Test Name',
   sort: true,
   filter: textFilter()
-}, {
-  dataField: 'TradeName',
-  text: 'Trade Name',
-  sort: true,
-  filter: textFilter()
-}, {
-  dataField: 'Dosage',
-  text: 'Dosage',
-  sort: true,
-  filter: textFilter()
-}, {
+}, 
+{
   dataField: 'Description',
   text: 'Description',
   sort: true,
   filter: textFilter()
-}, {
-  dataField: 'Amount',
-  text: 'Amount',
-  sort: true,
-  filter: textFilter()
-}, {
+}, 
+ {
   dataField: 'Price',
   text: 'Price',
   sort: true,
@@ -86,12 +73,12 @@ return (
 <NavigBar />
 <div id="add">
 </div>
-<Button variant="outline-secondary" size="sm"onClick={this.onAddClicked}>Add New Medcine </Button>
+<Button variant="outline-secondary" size="sm"onClick={this.onAddClicked}>Add New Lab Test </Button>
 <div id="add">
 </div>
 <div className="container">
 <div style={{ marginTop:20 }}>
-<BootstrapTable insertRow exportCSV  keyField='GenericName' 
+<BootstrapTable insertRow exportCSV  keyField='LabTestName' 
 data={this.state.items} 
 selectRow={selectRowProp} columns={columns} 
 dataSort={ true }  
@@ -113,4 +100,4 @@ return(
 }
 
 }
-export default PharmacyInventory; 
+export default LaboratoryInventory; 

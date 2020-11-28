@@ -4,7 +4,9 @@ import './index.css';
 import Login from './Login';
 import Logout from './Logout';
 import PharmacyInventory from "./pharmacyInventory";
+import LaboratoryInventory from "./laboratoryInventory";
 import addNewMedicine from "./addNewMedicine";
+import addNewLabTest from "./addNewLabTest";
 import pharmacyAdminProfilePage from "./pharmacyAdminProfilePage";
 import pharmacyProfile from "./pharmacyProfile";
 import employeeRecord from "./employeeRecord";
@@ -31,6 +33,13 @@ const routing=(
 <Route exact path = '/pharmacy/addnewemployee' component = {addNewEmployee}/>
 <Route exact path = '/pharmacy/employeeprofile' component = {employeeRecord}/>
 <Route exact path = '/pharmacy/pharmacyprofile' component = {pharmacyProfile} />
+
+
+<Route exact path = '/laboratory' component = {LaboratoryInventory} />
+<Route exact path = '/laboratory/addnewlabtest' component = {addNewLabTest} />
+<Route exact path = '/laboratory/employeeprofile' component = {employeeRecord}/>
+
+<Route exact path = '/laboratory/addnewemployee' component = {addNewEmployee}/>
 
 <Route exact path = '/moh' component = {Home}/>
 <Route exact path = '/moh/pharmacylist' component = {mohPharmacyList}/>

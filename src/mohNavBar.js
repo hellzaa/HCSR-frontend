@@ -3,11 +3,16 @@ import {Navbar ,Nav, NavDropdown} from 'react-bootstrap';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
+import { Redirect } from 'react-router-dom';
+
 
 class NavigBar extends Component{
 
 render()
 {
+const employeeToken=localStorage.getItem('token');
+console.log(employeeToken);
+if(employeeToken!=null)
 return(
 <div>
   <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed>
@@ -38,6 +43,11 @@ return(
 
 </div>
 );
+else
+return(
+ <Redirect to="/"></Redirect>
+
+)
 
 }
 }

@@ -12,22 +12,33 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
+import jwt from "jwt-decode";
 
 class EmployeeRecord extends Component{
 constructor(){
   const employeeToken=localStorage.getItem('token');
+  const tokenDecoded=jwt(employeeToken);
 super();
 this.state={items: [] ,
-  employeeToken: employeeToken
+  employeeToken: employeeToken,
+  tokenDecoded: tokenDecoded
 }
 }
 
 onAddClicked=()=>{
-this.props.history.push('/pharmacy/addnewemployee')
+  if(this.state.tokenDecoded.sessiondata.Institution==="Pharmacy")
+      this.props.history.push('/pharmacy/addnewemployee')
+  else if(this.state.tokenDecoded.sessiondata.Institution==="Laboratory")
+  this.props.history.push('/laboratory/addnewemployee')
 }
 componentDidMount(){
-
-fetch(`http://localhost:3007/pharmacy/employeerecord/${this.state.employeeToken}`)
+  console.log(this.state.tokenDecoded);
+if(this.state.tokenDecoded.sessiondata.Institution==="Pharmacy")
+    fetch(`http://localhost:3007/pharmacy/employeerecord/${this.state.employeeToken}`)
+    .then(response=>response.json())
+    .then(response=>this.setState({items:response}));
+else if(this.state.tokenDecoded.sessiondata.Institution==="Laboratory")
+fetch(`http://localhost:3007/laboratory/employeerecord/${this.state.employeeToken}`)
 .then(response=>response.json())
 .then(response=>this.setState({items:response}));
 }
