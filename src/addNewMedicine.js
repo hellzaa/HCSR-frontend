@@ -13,33 +13,22 @@ class addNewMedicine extends Component{
 constructor(){
 super();
 const employeeToken=localStorage.getItem('token');
+this.genericname=React.createRef();
+this.tradename=React.createRef();
+this.description=React.createRef();
+this.dosage=React.createRef();
 this.state={
 GenericName:"",
 TradeName:"",
 Dosage:"",
 Description:"",
 Amount:"",
+prefillinfo:"",
 employeeToken:employeeToken
 }
 this.handleSubmit=this.handleSubmit.bind(this);
 }
 
-handleGenericNameChange(event){
-this.setState({GenericName: event.target.value});
-
-}
-handleTradeNameChange(event){
-this.setState({TradeName: event.target.value});
-
-}
-handleDosageChange(event){
-this.setState({Dosage: event.target.value});
-
-}
-handleDescriptionChange(event){
-this.setState({Description: event.target.value});
-
-}
 handleAmountChange(event){
 this.setState({Amount: event.target.value});
 
@@ -49,6 +38,19 @@ this.setState({Price: event.target.value});
   
 }
 
+componentDidMount(){
+
+axios.get(`http://localhost:3007/pharmacy/callqrreader/${this.state.employeeToken}`).then(response=>{
+this.setState({items:response});
+this.setState({prefillinfo: JSON.parse(this.state.items["data"])});
+console.log(this.state.prefillinfo);
+
+
+});
+	
+
+}
+
 handleSubmit(event){
 event.preventDefault();
 this.props.history.push("/pharmacy");
@@ -56,12 +58,14 @@ window.location.reload();
 
 
 axios.post(`http://localhost:3007/pharmacy/addnewmedicine/${this.state.employeeToken}`,{
-GenericName:this.state.GenericName,
-TradeName:this.state.TradeName,
-Dosage:this.state.Dosage,
-Description:this.state.Description,
+
+GenericName:this.genericname.current.value,
+TradeName:this.tradename.current.value,
+Dosage:this.dosage.current.value,
+Description:this.description.current.value,
 Amount:this.state.Amount,
 Price:this.state.Price}).then(res=>{
+console.log(res);
 if(res.status===200){
 this.props.push.history.replace("/pharmacy");
 }
@@ -79,19 +83,19 @@ return (
 <Form onSubmit={this.handleSubmit}>
   <Form.Group controlId="formBasicText">
     <Form.Label>Generic Name</Form.Label>
-    <Form.Control type="text" placeholder="Generic Name" onChange={this.handleGenericNameChange.bind(this)}/>
+    <Form.Control type="text" value={this.state.prefillinfo["GenericName"]} ref={this.genericname} />
   </Form.Group>
   <Form.Group controlId="formBasicText">
     <Form.Label>Trade Name</Form.Label>
-    <Form.Control type="text" placeholder="Trade Name" onChange={this.handleTradeNameChange.bind(this)}/>
+    <Form.Control type="text" value={this.state.prefillinfo["TradeName"]} ref={this.tradename} />
   </Form.Group>
   <Form.Group controlId="formBasicText">
     <Form.Label>Dosage</Form.Label>
-    <Form.Control type="text" placeholder="Dosage"onChange={this.handleDosageChange.bind(this)} />
+    <Form.Control type="text" value={this.state.prefillinfo["Dosage"]} ref={this.dosage} />
   </Form.Group>
   <Form.Group controlId="formBasicText">
     <Form.Label>Description</Form.Label>
-    <Form.Control type="text" placeholder="Description"onChange={this.handleDescriptionChange.bind(this)} />
+    <Form.Control type="text" value={this.state.prefillinfo["Description"]} ref={this.description} />
   </Form.Group>
   <Form.Group controlId="formBasicText">
     <Form.Label>Amount</Form.Label>

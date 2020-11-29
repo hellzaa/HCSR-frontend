@@ -17,6 +17,8 @@ import mohPharmacyList from "./MOH/mohPharmacyList";
 import * as serviceWorker from './serviceWorker';
 import {Route, BrowserRouter as Router} from 'react-router-dom';
 
+
+
 import mohLaboratoryList from "./MOH/mohLaboratoryList";
 
 import mohHospitalList from "./MOH/mohHospitalList";
