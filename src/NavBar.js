@@ -75,6 +75,31 @@ return(
 );
 
 		}
+else if(decodedToken.sessiondata.Institution==="Hospital")
+		{
+return(
+<div>
+  <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+  <Navbar.Brand href="#home">HCSR</Navbar.Brand>
+  <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+  <Navbar.Collapse id="responsive-navbar-nav">
+    <Nav className="mr-auto">
+      <Nav.Link href="http://localhost:3000/hospital">Specialist List</Nav.Link>
+      <Nav.Link href="http://localhost:3000/hospital/employeeprofile">Employee List</Nav.Link>
+    </Nav>
+    <Nav>
+      <Nav.Link href="http://localhost:3000/logout">
+        Logout
+      </Nav.Link>
+    </Nav>
+  </Navbar.Collapse>
+</Navbar>
+ 
+
+</div>
+);
+
+		}
 
 
 }

@@ -54,10 +54,20 @@ this.setState({Password: event.target.value});
 handleSubmit(event){
 event.preventDefault();
 if(this.state.tokenDecoded.sessiondata.Institution==="Pharmacy")  
-    this.props.history.push("/pharmacy/employeeprofile");
+   {
+	 this.props.history.push("/pharmacy/employeeprofile");
+	 window.location.reload();
+   }
 else if(this.state.tokenDecoded.sessiondata.Institution==="Laboratory")  
-    this.props.history.push("/laboratory/employeeprofile");
-window.location.reload();
+   {
+	this.props.history.push("/laboratory/employeeprofile");
+	window.location.reload();
+   }
+else if(this.state.tokenDecoded.sessiondata.Institution==="Hospital")  
+   {
+	this.props.history.push("/hospital/employeeprofile");
+	window.location.reload();
+   }
 
 if(this.state.tokenDecoded.sessiondata.Institution==="Pharmacy")  
 {
@@ -84,6 +94,29 @@ console.log("New user added");
 else if(this.state.tokenDecoded.sessiondata.Institution==="Laboratory")  
 {
   axios.post(`http://localhost:3007/laboratory/addnewemployee/${this.state.employeeToken}`,{
+    Firstname:this.state.Firstname,
+    Lastname:this.state.Lastname,
+    Password:this.state.Password,
+    JobDescription:this.state.JobDescription,
+    Username:this.state.Username,
+    
+    }).then(res=>{
+    if(res.status===200){
+    console.log("Add new employee token");
+    console.log(localStorage.getItem('token'));
+    var employeetoken=jwt(localStorage.getItem('token'));
+    console.log(employeetoken);
+    console.log("New user added");
+    //this.props.push.history.replace("/pharmacy/employeeprofile");
+    }
+    
+    }).catch(console.log);
+
+
+}
+else if(this.state.tokenDecoded.sessiondata.Institution==="Hospital")  
+{
+  axios.post(`http://localhost:3007/hospital/addnewemployee/${this.state.employeeToken}`,{
     Firstname:this.state.Firstname,
     Lastname:this.state.Lastname,
     Password:this.state.Password,

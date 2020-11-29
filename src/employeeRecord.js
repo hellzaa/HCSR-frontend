@@ -29,7 +29,9 @@ onAddClicked=()=>{
   if(this.state.tokenDecoded.sessiondata.Institution==="Pharmacy")
       this.props.history.push('/pharmacy/addnewemployee')
   else if(this.state.tokenDecoded.sessiondata.Institution==="Laboratory")
-  this.props.history.push('/laboratory/addnewemployee')
+  	this.props.history.push('/laboratory/addnewemployee')
+  else if(this.state.tokenDecoded.sessiondata.Institution==="Hospital")
+  	this.props.history.push('/hospital/addnewemployee')
 }
 componentDidMount(){
   console.log(this.state.tokenDecoded);
@@ -39,6 +41,10 @@ if(this.state.tokenDecoded.sessiondata.Institution==="Pharmacy")
     .then(response=>this.setState({items:response}));
 else if(this.state.tokenDecoded.sessiondata.Institution==="Laboratory")
 fetch(`http://localhost:3007/laboratory/employeerecord/${this.state.employeeToken}`)
+.then(response=>response.json())
+.then(response=>this.setState({items:response}));
+else if(this.state.tokenDecoded.sessiondata.Institution==="Hospital")
+fetch(`http://localhost:3007/hospital/employeerecord/${this.state.employeeToken}`)
 .then(response=>response.json())
 .then(response=>this.setState({items:response}));
 }

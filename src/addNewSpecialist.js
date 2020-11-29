@@ -10,14 +10,14 @@ import axios from 'axios';
 
 import NavigBar from './NavBar.js';
 import {Button, Form, Jumbotron} from 'react-bootstrap';
-class addNewLabTest extends Component{
+class addNewSpecialist extends Component{
 constructor(){
 super();
 const employeeToken=localStorage.getItem('token');
 this.state={
-LabTestName:"",
-Description:"",
-Price:"",
+WorkingDay:"",
+WorkingHour:"",
+SpecialistInfo:"",
 employeeToken:employeeToken,
 items: [],
 selectedValue: ""
@@ -26,27 +26,25 @@ this.handleSelect=this.handleSelect.bind(this);
 this.handleSubmit=this.handleSubmit.bind(this);
 }
 
-handleLabTestNameChange(event){
-this.setState({LabTestName: event.target.value});
+handleSpecialistInfoChange(event){
+this.setState({SpecialistInfo: event.target.value});
 
 }
-
-handleDescriptionChange(event){
-this.setState({Description: event.target.value});
+handleWorkingDayChange(event){
+this.setState({WorkingDay: event.target.value});
 
 }
-handlePriceChange(event){
-this.setState({Price: event.target.value});
-  
-}
+handleWorkingHourChange(event){
+this.setState({WorkingHour: event.target.value});
 
+}
 handleSelect(event){
   this.setState({selectedValue: event.target.value});
   console.log(this.state.selectedValue);
   }
 
 componentDidMount=function(){
-  fetch(`http://localhost:3007/laboratory/getalllabtest/${this.state.employeeToken}`)
+  fetch(`http://localhost:3007/hospital/getallspecialist/${this.state.employeeToken}`)
   .then(response=>response.json())
   .then(response=>this.setState({items:response}));
   console.log(this.state.items);
@@ -55,16 +53,17 @@ componentDidMount=function(){
 
 handleSubmit(event){
 event.preventDefault();
-this.props.history.push("/laboratory");
-window.location.reload();
+//this.props.history.push("/hospital");
+//window.location.reload();
 console.log("in handle submit");
 console.log(this.state.selectedValue);
-axios.post(`http://localhost:3007/laboratory/addnewlabtest/${this.state.employeeToken}`,{
-LabTestName:this.state.selectedValue,
-Description:this.state.Description,
-Price:this.state.Price}).then(res=>{
+axios.post(`http://localhost:3007/hospital/addnewspecialist/${this.state.employeeToken}`,{
+SpecialistInfo:this.state.selectedValue,
+WorkingDay:this.state.WorkingDay,
+WorkingHour:this.state.WorkingHour
+}).then(res=>{
 if(res.status===200){
-this.props.push.history.replace("/laboratory");
+this.props.push.history.replace("/hospital");
 }
 
 }).catch(console.log);
@@ -79,26 +78,28 @@ return (
 <Jumbotron>
 <Form onSubmit={this.handleSubmit}>
   <Form.Group controlId="formBasicText">
-    <Form.Label>Lab Test Name</Form.Label>
+    <Form.Label>Specialist</Form.Label>
    </Form.Group>
    <Form.Group controlId="formBasicSelect">
     <select value={this.state.selectedValue} onChange={this.handleSelect}>
     {
           this.state.items.map(function(item){
             return(
-              <option value={item["LabTestName"]}>{item["LabTestName"]}</option>
+              <option value={item["SpecialistInfo"]}>{item["SpecialistInfo"]}</option>
             )
           })
         }
     </select>
   </Form.Group>
-  <Form.Group controlId="formBasicText">
-    <Form.Label>Description</Form.Label>
-    <Form.Control type="text" placeholder="Description"onChange={this.handleDescriptionChange.bind(this)} />
+  <Form.Group>
+	<Form.Label>Working Day</Form.Label>
+	<Form.Control type="text" placeholder="Working Day"onChange={this.handleWorkingDayChange.bind(this)} />
+
   </Form.Group>
-  <Form.Group controlId="formBasicText">
-    <Form.Label>Price (ETB) </Form.Label>
-    <Form.Control type="text" placeholder="Price" onChange={this.handlePriceChange.bind(this)}/>
+ <Form.Group>
+	<Form.Label>Working Hour</Form.Label>
+	<Form.Control type="text" placeholder="Working Hour"onChange={this.handleWorkingHourChange.bind(this)} />
+
   </Form.Group>
 <Button variant="primary" type="submit">
     Submit
@@ -115,4 +116,4 @@ return (
 }
 
 }
-export default addNewLabTest; 
+export default addNewSpecialist; 
