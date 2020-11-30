@@ -42,7 +42,7 @@ componentDidMount(){
 
 axios.get(`http://localhost:3007/pharmacy/callqrreader/${this.state.employeeToken}`).then(response=>{
 this.setState({items:response});
-this.setState({prefillinfo: JSON.parse(this.state.items["data"])});
+this.setState({prefillinfo: this.state.items["data"]});
 console.log(this.state.prefillinfo);
 
 
