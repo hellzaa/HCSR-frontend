@@ -4,33 +4,50 @@ import axios from 'axios';
 
 class AddEditForm extends React.Component {
   state = {
-    UserID:0,
-    Firstname:"",
-    Lastname:"",
-    Username:"",
-    Password:"",
-    Pharmacy:""
+    PharmacyID:0,
+    PharmacyName:"",
+    Type:"",
+    Branch:"",
+    City:"",
+    Subcity:"",
+    Woreda:"",
+    PhoneNo:"",
+    Email:"",
+    PoBox:"",
+    Latitude:"",
+    Longitude:"",
+    items: [],
+    selectedValue: ""
   }
 
   onChange = e => {
     this.setState({[e.target.name]: e.target.value})
   }
+
+  handleSelect = e => {
+    this.setState({selectedValue: e.target.value});
+    console.log(this.state.selectedValue);
+  }
   submitFormAdd = e => {
     e.preventDefault();
     window.location.reload();
-    console.log("Submit Form...!!!!");
-    axios.post(`http://localhost:3007/moh/pharmacy/addadmin`,{
-     Firstname: this.state.Firstname,
-      Lastname: this.state.Lastname,
-      Username: this.state.Username,
-      Password: this.state.Password,
-      Pharmacy: this.state.Pharmacy})
+    axios.post(`http://localhost:3007/moh/pharmacy/add`,{
+      PharmacyName: this.state.PharmacyName,
+      Type: this.state.Type,
+      Branch: this.state.Branch,
+      City: this.state.City,
+      Subcity: this.state.Subcity,
+      Woreda: this.state.Woreda,
+      PhoneNo: this.state.PhoneNo,
+      Email: this.state.Email,
+      PoBox: this.state.PoBox,
+      Latitude: this.state.Latitude,
+      Longitude: this.state.Longitude})
       .then(item => {
       if(Array.isArray(item)) {
-        console.log("Pharmacy Admin")
         console.log(item[0])
-        this.props.addPharmacyAdmin(item[0])
-        this.props.push.history.replace("moh/facilityadmins")
+        this.props.addPharmacy(item[0])
+        this.props.push.history.replace("moh/pharmacylist")
         this.props.toggle()
     } else {
       console.log('failure')
@@ -43,17 +60,23 @@ class AddEditForm extends React.Component {
 submitFormEdit = e => {
   e.preventDefault();
   window.location.reload();
-  axios.put(`http://localhost:3007/moh/pharmacy/editadmin/${this.state.UserID}`,{
-    Firstname: this.state.Firstname,
-    Lastname: this.state.Lastname,
-    Username: this.state.Username,
-    Password: this.state.Password,
-    Pharmacy: this.state.Pharmacy})
+  axios.put(`http://localhost:3007/moh/pharmacy/edit/${this.state.PharmacyID}`,{
+      PharmacyName: this.state.PharmacyName,
+      Type: this.state.Type,
+      Branch: this.state.Branch,
+      City: this.state.City,
+      Subcity: this.state.Subcity,
+      Woreda: this.state.Woreda,
+      PhoneNo: this.state.PhoneNo,
+      Email: this.state.Email,
+      PoBox: this.state.PoBox,
+      Latitude: this.state.Latitude,
+      Longitude: this.state.Longitude})
     .then(item => {
       if(Array.isArray(item)) {
         // console.log(item[0])
-        this.props.updatePharmacyAdmin(item[0])
-        this.props.push.history.replace("moh/facilityadmins")
+        this.props.updatePharmacy(item[0])
+        this.props.push.history.replace("moh/pharmacylist")
         this.props.toggle()
     } //else {
       //console.log('failure')
@@ -64,8 +87,8 @@ submitFormEdit = e => {
 componentDidMount(){
   // if item exists, populate the state with proper data
   if(this.props.item){
-    const { UserID, Firstname, Lastname, Username, Password, Institution, JobDescription, Pharmacy } = this.props.item
-    this.setState({ UserID, Firstname, Lastname, Username, Password, Institution, JobDescription, Pharmacy })
+    const { PharmacyID, PharmacyName, Type, Branch, City, Subcity, Woreda, PhoneNo, Email, PoBox, Latitude, Longitude } = this.props.item
+    this.setState({ PharmacyID, PharmacyName, Type, Branch, City, Subcity, Woreda, PhoneNo, Email, PoBox, Latitude, Longitude })
   }
 }
 
@@ -74,26 +97,50 @@ render() {
 
     <Form onSubmit={this.props.item ? this.submitFormEdit : this.submitFormAdd}>
       <FormGroup>
-        <Label for="Firstname">First Name</Label>
-        <Input type="text" name="Firstname" id="Firstname" onChange={this.onChange} value={this.state.Firstname === null ? '' : this.state.Firstname} />
+        <Label for="PharmacyName">Pharmacy Name</Label>
+        <Input type="text" name="PharmacyName" id="PharmacyName" onChange={this.onChange} value={this.state.PharmacyName === null ? '' : this.state.PharmacyName} />
       </FormGroup>
-      <FormGroup>
-        <Label for="Lastname">Lastname</Label>
-        <Input type="text" name="Lastname" id="Lastname" onChange={this.onChange} value={this.state.Lastname === null ? '' : this.state.Lastname} />
+      <FormGroup> 
+        <Label>Type</Label>
+        <Input type="text" name="Type" id="Type" onChange={this.onChange} value={this.state.Type === null ? '' : this.state.Type}  />
         </FormGroup>
         <FormGroup>
-          <Label for="Username">Username</Label>
-          <Input type="text" name="Username" id="Username" onChange={this.onChange} value={this.state.Username === null ? '' : this.state.Username} />
+          <Label for="Branch">Branch</Label>
+          <Input type="number" name="Branch" id="Branch" onChange={this.onChange} value={this.state.Branch === null ? '' : this.state.Branch}  />
         </FormGroup>
         <FormGroup>
-          <Label for="Password">Password</Label>
-          <Input type="password" name="Password" id="Password" onChange={this.onChange} value={this.state.Password === null ? '' : this.state.Password}/>
+          <Label for="City">City</Label>
+          <Input type="text" name="City" id="City" onChange={this.onChange} value={this.state.City === null ? '' : this.state.City}  />
         </FormGroup>
         <FormGroup>
-          <Label for="Pharmacy">Pharmacy Id.</Label>
-          <Input type="number" name="Pharmacy" id="Pharmacy" onChange={this.onChange} value={this.state.Pharmacy === null ? '' : this.state.Pharmacy} />
+          <Label for="Subcity">Subcity</Label>
+          <Input type="text" name="Subcity" id="Subcity" onChange={this.onChange} value={this.state.Subcity === null ? '' : this.state.Subcity}/>
         </FormGroup>
-                
+        <FormGroup>
+          <Label for="Woreda">Woreda</Label>
+          <Input type="number" name="Woreda" id="Woreda" onChange={this.onChange} value={this.state.Woreda  === null ? '' : this.state.Woreda}  />
+        </FormGroup>
+        <FormGroup>
+          <Label for="PhoneNo">Phone No.</Label>
+          <Input type="text" name="PhoneNo" id="PhoneNo" onChange={this.onChange} value={this.state.PhoneNo === null ? '' : this.state.PhoneNo}  />
+        </FormGroup>
+        <FormGroup>
+          <Label for="Email">Email</Label>
+          <Input type="email" name="Email" id="Email" onChange={this.onChange} value={this.state.Email === null ? '' : this.state.Email}  />
+        </FormGroup>
+        <FormGroup>
+          <Label for="PoBox">PoBox</Label>
+          <Input type="number" name="PoBox" id="PoBox" onChange={this.onChange} value={this.state.PoBox === null ? '' : this.state.PoBox}  />
+        </FormGroup>
+        <FormGroup>
+          <Label for="Latitude">Latitude</Label>
+          <Input type="text" name="Latitude" id="Latitude" onChange={this.onChange} value={this.state.Latitude === null ? '' : this.state.Latitude}  />
+        </FormGroup>
+        <FormGroup>
+          <Label for="Longitude">Longitude</Label>
+          <Input type="text" name="Longitude" id="Longitude" onChange={this.onChange} value={this.state.Longitude === null ? '' : this.state.Longitude}  />
+        </FormGroup>
+        
         <Button>Submit</Button>
       </Form>
     );
