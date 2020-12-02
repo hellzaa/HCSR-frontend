@@ -108,7 +108,10 @@ render() {
         </FormGroup>
         <FormGroup>
         <Label for="Referral">Referral</Label>
-        <Input type="text" name="Referral" id="Referral" onChange={this.onChange} value={this.state.Referral === null ? '' : this.state.Referral}  />
+        <Input type="select" name="Type" id="Type" onChange={this.onChange} value={this.state.Type === null ? '' : this.state.Type} >
+          <option>Yes</option>
+          <option>No</option>
+        </Input>
         </FormGroup>
         <FormGroup>
           <Label for="Website">Website</Label>

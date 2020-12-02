@@ -96,7 +96,10 @@ render() {
       </FormGroup>
       <FormGroup>
         <Label for="Type">Type</Label>
-        <Input type="text" name="Type" id="Type" onChange={this.onChange} value={this.state.Type === null ? '' : this.state.Type}  />
+        <Input type="select" name="Type" id="Type" onChange={this.onChange} value={this.state.Type === null ? '' : this.state.Type} >
+          <option>Private</option>
+          <option>Government</option>
+        </Input>
         </FormGroup>
         <FormGroup>
           <Label for="Branch">Branch</Label>
