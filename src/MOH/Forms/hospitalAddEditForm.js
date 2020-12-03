@@ -137,7 +137,7 @@ render() {
           <Label for="Longitude">Longitude</Label>
           <Input type="text" name="Longitude" id="Longitude" onChange={this.onChange} value={this.state.Longitude === null ? '' : this.state.Longitude}  />
         </FormGroup>
-        
+
         <Button>Submit</Button>
       </Form>
     );

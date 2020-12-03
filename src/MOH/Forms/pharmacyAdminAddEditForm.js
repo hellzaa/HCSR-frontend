@@ -41,25 +41,7 @@ class AddEditForm extends React.Component {
 }
 
 submitFormEdit = e => {
-  e.preventDefault();
-  window.location.reload();
-  axios.put(`http://localhost:3007/moh/pharmacy/editadmin/${this.state.UserID}`,{
-    Firstname: this.state.Firstname,
-    Lastname: this.state.Lastname,
-    Username: this.state.Username,
-    Password: this.state.Password,
-    Pharmacy: this.state.Pharmacy})
-    .then(item => {
-      if(Array.isArray(item)) {
-        // console.log(item[0])
-        this.props.updatePharmacyAdmin(item[0])
-        this.props.push.history.replace("moh/facilityadmins")
-        this.props.toggle()
-    } //else {
-      //console.log('failure')
-   // }
-  })
-  .catch(err => console.log(err))
+
 }
 componentDidMount(){
   // if item exists, populate the state with proper data
@@ -93,7 +75,7 @@ render() {
           <Label for="Pharmacy">Pharmacy Id.</Label>
           <Input type="number" name="Pharmacy" id="Pharmacy" onChange={this.onChange} value={this.state.Pharmacy === null ? '' : this.state.Pharmacy} />
         </FormGroup>
-                
+
         <Button>Submit</Button>
       </Form>
     );

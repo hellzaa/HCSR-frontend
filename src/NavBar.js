@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Navbar ,Nav, NavDropdown} from 'react-bootstrap';
+import {Navbar ,Nav} from 'react-bootstrap';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
@@ -30,12 +30,7 @@ return(
     <Nav className="mr-auto">
       <Nav.Link href="http://localhost:3000/pharmacy">Medicine List</Nav.Link>
       <Nav.Link href="http://localhost:3000/pharmacy/employeeprofile">Employee List</Nav.Link>
-      <NavDropdown title="Profile" id="collasible-nav-dropdown">
-        <NavDropdown.Item href="http://localhost:3000/pharmacy/adminprofile">Admin Profile</NavDropdown.Item>
-        <NavDropdown.Item href="http://localhost:3000/pharmacy/pharmacyprofile">Pharmacy Profile</NavDropdown.Item>
-        {/*<NavDropdown.Divider />
-        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>*/}
-      </NavDropdown>
+      <Nav.Link href="http://localhost:3000/pharmacy/adminprofile">Admin Profile</Nav.Link>
     </Nav>
     <Nav>
       <Nav.Link href="http://localhost:3000/logout">
@@ -44,7 +39,7 @@ return(
     </Nav>
   </Navbar.Collapse>
 </Navbar>
- 
+
 
 </div>
 );
@@ -69,7 +64,7 @@ return(
     </Nav>
   </Navbar.Collapse>
 </Navbar>
- 
+
 
 </div>
 );
@@ -94,7 +89,7 @@ return(
     </Nav>
   </Navbar.Collapse>
 </Navbar>
- 
+
 
 </div>
 );

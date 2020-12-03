@@ -50,7 +50,6 @@ class ModalForm extends Component {
             <ModalBody>
               <AddEditForm
                 addPharmacyAdmin={this.props.addPharmacyAdmin}
-                updatePharmacy={this.props.updatePharmacyAdmin}
                 toggle={this.toggle}
                 item={this.props.item} />
             </ModalBody>
@@ -59,5 +58,5 @@ class ModalForm extends Component {
       )
     }
   }
-  
+
   export default ModalForm

@@ -17,7 +17,7 @@ class DataTable extends Component {
           window.location.reload();
       })
       )
-      
+
     }
 }
 
@@ -43,7 +43,6 @@ class DataTable extends Component {
               <ModalForm buttonLabel="Edit" item={item} updateHospital={this.props.updateHospital}/>
               {' '}
               <Button color="danger" size="sm" onClick={() => this.deleteRow(item.HospID)}>Del</Button>
-              <Button color="primary" size="sm">Admin</Button>
             </div>
           </td>
         </tr>
@@ -75,5 +74,5 @@ class DataTable extends Component {
       )
     }
   }
-  
+
   export default DataTable

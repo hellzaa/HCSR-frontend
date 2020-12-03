@@ -14,8 +14,8 @@ constructor(){
   const employeeToken = localStorage.getItem('token');
 super();
 this.state={
-items: 
-{  
+items:
+{
   Firstname:"",
   Lastname:"",
   Username:"",
@@ -105,7 +105,7 @@ return (
   </Form.Group>
   <Form.Group controlId="formBasicText">
     <Form.Label>Password</Form.Label>
-    <Form.Control type="text" value={this.state.items.Password} onChange={this.handlePasswordChange.bind(this)} />
+    <Form.Control type="password" value={this.state.items.Password} onChange={this.handlePasswordChange.bind(this)} />
   </Form.Group>
 
   <Form.Group controlId="formBasicText">
@@ -127,4 +127,4 @@ return (
 }
 
 }
-export default pharmacyAdminProfilePage; 
+export default pharmacyAdminProfilePage;

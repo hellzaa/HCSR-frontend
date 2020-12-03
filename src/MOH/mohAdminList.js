@@ -5,7 +5,7 @@ import NavigBar from '../mohNavBar';
 //import {Button} from 'react-bootstrap';
 import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
 //import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
-import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css'; 
+import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 //import paginationFactory from 'react-bootstrap-table2-paginator';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
@@ -24,7 +24,7 @@ class AdminList extends Component{
   state={
       items: []
     }
-  
+
 getAllAdmins(){
   fetch('http://localhost:3007/moh/getalladmins')
   .then(response => response.json())
@@ -54,29 +54,10 @@ addHospitalAdmin = (item) => {
   }))
 }
 
-updatePharmacyAdmin = (item) => {
-  const itemIndex = this.state.items.findIndex(data => data.id === item.UserID)
-  const newArray = [
-  // destructure all items from beginning to the indexed item
-    ...this.state.items.slice(0, itemIndex),
-  // add the updated item to the array
-    item,
-  // add the rest of the items to the array from the index after the replaced item
-    ...this.state.items.slice(itemIndex + 1)
-  ]
-  this.setState({ items: newArray })
-}
-
 componentDidMount(){
   this.getAllAdmins()
 }
-/*
-deleteRow(id){
-  DataTable.deleteRow(id).then(res => {
-    this.setState({items:this.state.items.filter(item => item.UserID !==id)});
-  });
-}
-*/
+
 render() {
   return (
       <div>
@@ -92,7 +73,7 @@ render() {
             filename={"Admins.csv"}
             color="primary"
             style={{float: "left", marginRight: "10px"}}
-            className="btn btn-primary" 
+            className="btn btn-primary"
             data={this.state.items}>
             Download CSV
           </CSVLink>
@@ -108,10 +89,10 @@ render() {
         </Col>
       </Row>
       </div>
-      
+
       </div>
     )
   }
 }
 
-export default AdminList; 
+export default AdminList;
