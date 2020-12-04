@@ -53,23 +53,23 @@ this.setState({Password: event.target.value});
 
 handleSubmit(event){
 event.preventDefault();
-if(this.state.tokenDecoded.sessiondata.Institution==="Pharmacy")  
+if(this.state.tokenDecoded.sessiondata.Institution==="Pharmacy" && this.state.tokenDecoded.sessiondata.JobDescription==="Admin")  
    {
 	 this.props.history.push("/pharmacy/employeeprofile");
 	 window.location.reload();
    }
-else if(this.state.tokenDecoded.sessiondata.Institution==="Laboratory")  
+else if(this.state.tokenDecoded.sessiondata.Institution==="Laboratory" && this.state.tokenDecoded.sessiondata.JobDescription==="Admin")  
    {
 	this.props.history.push("/laboratory/employeeprofile");
 	window.location.reload();
    }
-else if(this.state.tokenDecoded.sessiondata.Institution==="Hospital")  
+else if(this.state.tokenDecoded.sessiondata.Institution==="Hospital" && this.state.tokenDecoded.sessiondata.JobDescription==="Admin")  
    {
 	this.props.history.push("/hospital/employeeprofile");
 	window.location.reload();
    }
 
-if(this.state.tokenDecoded.sessiondata.Institution==="Pharmacy")  
+if(this.state.tokenDecoded.sessiondata.Institution==="Pharmacy" && this.state.tokenDecoded.sessiondata.JobDescription==="Admin")  
 {
 axios.post(`http://localhost:3007/pharmacy/addnewemployee/${this.state.employeeToken}`,{
 Firstname:this.state.Firstname,
@@ -91,7 +91,7 @@ console.log("New user added");
 }).catch(console.log);
 }
 
-else if(this.state.tokenDecoded.sessiondata.Institution==="Laboratory")  
+else if(this.state.tokenDecoded.sessiondata.Institution==="Laboratory" && this.state.tokenDecoded.sessiondata.JobDescription==="Admin")  
 {
   axios.post(`http://localhost:3007/laboratory/addnewemployee/${this.state.employeeToken}`,{
     Firstname:this.state.Firstname,
@@ -114,7 +114,7 @@ else if(this.state.tokenDecoded.sessiondata.Institution==="Laboratory")
 
 
 }
-else if(this.state.tokenDecoded.sessiondata.Institution==="Hospital")  
+else if(this.state.tokenDecoded.sessiondata.Institution==="Hospital" && this.state.tokenDecoded.sessiondata.JobDescription==="Admin")  
 {
   axios.post(`http://localhost:3007/hospital/addnewemployee/${this.state.employeeToken}`,{
     Firstname:this.state.Firstname,

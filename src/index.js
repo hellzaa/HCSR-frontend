@@ -43,12 +43,14 @@ const routing=(
 <Route exact path = '/laboratory/addnewlabtest' component = {addNewLabTest} />
 <Route exact path = '/laboratory/employeeprofile' component = {employeeRecord}/>
 <Route exact path = '/laboratory/addnewemployee' component = {addNewEmployee}/>
+<Route exact path = '/laboratory/adminprofile' component = {pharmacyAdminProfilePage}/>
 
 
 <Route exact path = '/hospital' component = {HospitalInventory} />
 <Route exact path = '/hospital/addnewspecialist' component = {addNewSpecialist} />
 <Route exact path = '/hospital/employeeprofile' component = {employeeRecord}/>
 <Route exact path = '/hospital/addnewemployee' component = {addNewEmployee}/>
+<Route exact path = '/hospital/adminprofile' component = {pharmacyAdminProfilePage}/>
 
 <Route exact path = '/moh' component = {Home}/>
 <Route exact path = '/moh/pharmacylist' component = {mohPharmacyList}/>
