@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
-import { Table, Button } from 'reactstrap';
-import ModalForm from '../Modals/pharmacyAdminModal'
+import { Table } from 'reactstrap';
+//import ModalForm from '../Modals/pharmacyAdminModal'
 //import axios from 'axios';
 
 class DataTable extends Component {
