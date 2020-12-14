@@ -1,0 +1,28 @@
+body {
+    background-color:white;
+    text-align:center; 
+    vertical-align:middle;
+    }
+
+  #mohHome{
+    height:100px;
+    width:700px;
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+    background-color:lightgray;
+    border: solid;
+    }
+  #border{
+  height:530px;
+  width:600px;
+  position: absolute;;
+  top:90px;
+  left:400px;
+  border:solid;
+  }
+ 
+  
